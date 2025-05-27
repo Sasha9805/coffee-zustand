@@ -37,4 +37,3 @@ export const useCounterStore = create<CounterState & CounterActions>(
 export const changeByAmount = (value: number) =>
   useCounterStore.getState().changeByAmount(value);
 export const getCounter = () => useCounterStore.getState().counter;
-export const counter2 = useCounterStore.getState().counter;
