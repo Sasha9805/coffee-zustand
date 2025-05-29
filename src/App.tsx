@@ -1,18 +1,29 @@
-import { Button, Card, Rate, Tag } from "antd";
+import { Button, Card, Input, Rate, Tag } from "antd";
 import "./App.css";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useCoffeeStore } from "./model/coffeeStore";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const { coffeeList, getCoffeeList } = useCoffeeStore();
+  const [text, setText] = useState<string | undefined>();
 
   useEffect(() => {
     getCoffeeList();
   }, []);
 
+  const handleSearch = (text: string) => {
+    getCoffeeList({ text });
+    setText(text);
+  };
+
   return (
     <div className="wrapper">
+      <Input
+        placeholder="поиск"
+        value={text}
+        onChange={(e) => handleSearch(e.target.value)}
+      />
       <div className="cardsContainer">
         {coffeeList &&
           coffeeList.map((coffee) => (
