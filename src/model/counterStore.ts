@@ -23,8 +23,8 @@ const counterSlice: StateCreator<
   CounterState & CounterActions,
   [["zustand/persist", unknown]]
 > = (set, get) => ({
-  counter: 0,
-  persistedCounter: 0,
+  counter: initialState.counter,
+  persistedCounter: initialState.persistedCounter,
   resetStore: () => {
     set(initialState);
   },
