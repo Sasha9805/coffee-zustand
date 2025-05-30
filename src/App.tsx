@@ -3,71 +3,89 @@ import "./App.css";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useCoffeeStore } from "./model/coffeeStore";
 import { useState, useEffect } from "react";
-import { useCounterStore } from "./model/counterStore";
-import { useTodoStore } from "./model/todoStore";
-import { resetAllStores } from "./helpers/create";
 
 function App() {
-  // const { coffeeList, getCoffeeList } = useCoffeeStore();
-  // const [text, setText] = useState<string | undefined>();
+  const {
+    coffeeList,
+    cart,
+    address,
+    setAddress,
+    addToCart,
+    clearCart,
+    orderCoffee,
+    getCoffeeList,
+  } = useCoffeeStore();
+  const [text, setText] = useState<string | undefined>();
 
-  // useEffect(() => {
-  //   getCoffeeList();
-  // }, []);
+  useEffect(() => {
+    getCoffeeList();
+  }, []);
 
-  // const handleSearch = (text: string) => {
-  //   getCoffeeList({ text });
-  //   setText(text);
-  // };
+  const handleSearch = (text: string) => {
+    getCoffeeList({ text });
+    setText(text);
+  };
 
-  const { counter, persistedCounter, decrement, increment, resetStore } =
-    useCounterStore();
-
-  const { todos, addTodo } = useTodoStore();
+  // const cart: OrderItem[] | undefined = [];
 
   return (
     <div className="wrapper">
-      <Button onClick={increment}>+</Button>
-      <span>{counter}</span>
-      <span>{persistedCounter}</span>
-      <Button onClick={decrement}>-</Button>
-
-      {/* <Button onClick={resetStore}>reset</Button> */}
-
-      <Button onClick={resetAllStores}>reset</Button>
-      <Button onClick={() => addTodo("some")}>addTodo</Button>
-
-      {todos.map((todo, index) => (
-        <span key={index}>{todo.title}</span>
-      ))}
-      {/* <Input
+      <Input
         placeholder="поиск"
         value={text}
         onChange={(e) => handleSearch(e.target.value)}
       />
-      <div className="cardsContainer">
-        {coffeeList &&
-          coffeeList.map((coffee) => (
-            <Card
-              key={coffee.id}
-              cover={<img alt={coffee.name} src={coffee.image} />}
-              actions={[
-                <Button icon={<ShoppingCartOutlined />}>{coffee.price}</Button>,
-              ]}
-            >
-              <Card.Meta title={coffee.name} description={coffee.subTitle} />
-              <Tag color="purple" style={{ marginTop: 12 }}>
-                {coffee.type}
-              </Tag>
-              <Rate
-                style={{ marginTop: 12 }}
-                defaultValue={coffee.rating}
-                disabled
-                allowHalf
+      <div style={{ display: "flex" }}>
+        <div className="cardsContainer">
+          {coffeeList &&
+            coffeeList.map((coffee) => (
+              <Card
+                key={coffee.id}
+                cover={<img alt={coffee.name} src={coffee.image} />}
+                actions={[
+                  <Button
+                    icon={<ShoppingCartOutlined />}
+                    onClick={() => addToCart(coffee)}
+                  >
+                    {coffee.price}
+                  </Button>,
+                ]}
+              >
+                <Card.Meta title={coffee.name} description={coffee.subTitle} />
+                <Tag color="purple" style={{ marginTop: 12 }}>
+                  {coffee.type}
+                </Tag>
+                <Rate
+                  style={{ marginTop: 12 }}
+                  defaultValue={coffee.rating}
+                  disabled
+                  allowHalf
+                />
+              </Card>
+            ))}
+        </div>
+        <aside className="cart">
+          <h1>Заказ</h1>
+          {cart && cart.length > 0 ? (
+            <>
+              {cart.map((item, index) => (
+                <span key={index}>{item.name}</span>
+              ))}
+              <Input
+                placeholder="адрес"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
-            </Card>
-          ))}
-      </div> */}
+              <Button type="primary" onClick={orderCoffee} disabled={!address}>
+                Сделать заказ
+              </Button>
+              <Button onClick={clearCart}>Очистить корзину</Button>
+            </>
+          ) : (
+            <span>Добавьте напитки</span>
+          )}
+        </aside>
+      </div>
     </div>
   );
 }
