@@ -1,9 +1,9 @@
-import { type OrderCoffeeRequest } from "./../types/coffeeTypes";
 import type {
   CoffeeType,
   GetCoffeeListRequestParams,
   OrderCoffeeResponse,
   OrderItem,
+  OrderCoffeeRequest,
 } from "../types/coffeeTypes";
 import { type StateCreator, create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
