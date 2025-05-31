@@ -3,7 +3,7 @@ import "./App.css";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useCoffeeStore } from "./model/coffeeStore";
 import { useEffect } from "react";
-import { useSearchStore } from "./model/serachStore";
+import { useSearchStore } from "./model/searchStore";
 
 function App() {
   const {
