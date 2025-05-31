@@ -2,7 +2,8 @@ import { Button, Card, Input, Rate, Tag } from "antd";
 import "./App.css";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useCoffeeStore } from "./model/coffeeStore";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useSearchStore } from "./model/serachStore";
 
 function App() {
   const {
@@ -15,25 +16,18 @@ function App() {
     orderCoffee,
     getCoffeeList,
   } = useCoffeeStore();
-  const [text, setText] = useState<string | undefined>();
+  const { text, setText } = useSearchStore();
 
   useEffect(() => {
     getCoffeeList();
   }, []);
-
-  const handleSearch = (text: string) => {
-    getCoffeeList({ text });
-    setText(text);
-  };
-
-  // const cart: OrderItem[] | undefined = [];
 
   return (
     <div className="wrapper">
       <Input
         placeholder="поиск"
         value={text}
-        onChange={(e) => handleSearch(e.target.value)}
+        onChange={(e) => setText(e.target.value)}
       />
       <div style={{ display: "flex" }}>
         <div className="cardsContainer">

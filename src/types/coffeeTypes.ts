@@ -9,7 +9,7 @@ export type CoffeeType = {
 };
 
 export type GetCoffeeListRequestParams = {
-  text: string;
+  text?: string;
 };
 
 export type OrderItem = {
