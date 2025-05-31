@@ -4,30 +4,35 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useCoffeeStore } from "./model/coffeeStore";
 import { useEffect } from "react";
 import { useSearchStore } from "./model/searchStore";
+import { useUrlStorage } from "./helpers/useUrlStorage";
 
 function App() {
   const {
     coffeeList,
     cart,
     address,
+    params,
+    setParams,
     setAddress,
     addToCart,
     clearCart,
     orderCoffee,
     getCoffeeList,
   } = useCoffeeStore();
-  const { text, setText } = useSearchStore();
+  // const { text, setText } = useSearchStore();
 
   useEffect(() => {
-    getCoffeeList({ text });
+    getCoffeeList(params);
   }, []);
+
+  useUrlStorage(params, setParams);
 
   return (
     <div className="wrapper">
       <Input
         placeholder="поиск"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
+        value={params.text}
+        onChange={(e) => setParams({ text: e.target.value })}
       />
       <div style={{ display: "flex" }}>
         <div className="cardsContainer">
