@@ -14,16 +14,10 @@ export const useCoffeeStore = create<
   CartState & CartActions & ListState & ListActions
 >()(
   devtools(
-    persist(
-      (...args) => {
-        console.log(args);
-        return { ...listSlice(...args), ...cartSlice(...args) };
-      },
-      {
-        name: "coffeeStore",
-        partialize: (state) => ({ cart: state.cart, address: state.address }),
-      }
-    ),
+    persist((...args) => ({ ...listSlice(...args), ...cartSlice(...args) }), {
+      name: "coffeeStore",
+      partialize: (state) => ({ cart: state.cart, address: state.address }),
+    }),
     { name: "coffeeStore" }
   )
 );

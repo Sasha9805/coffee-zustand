@@ -3,7 +3,7 @@ import "./App.css";
 import { useCoffeeStore } from "./model/coffeeStore";
 import { useEffect } from "react";
 import { useUrlStorage } from "./helpers/useUrlStorage";
-import { CoffeeCard } from "./components/CoffeeCatd";
+import { CoffeeCard } from "./components/CoffeeCard";
 import { Cart } from "./components/Cart";
 
 function App() {
@@ -25,7 +25,9 @@ function App() {
       <div style={{ display: "flex" }}>
         <div className="cardsContainer">
           {coffeeList &&
-            coffeeList.map((coffee) => <CoffeeCard coffee={coffee} />)}
+            coffeeList.map((coffee) => (
+              <CoffeeCard key={coffee.id} coffee={coffee} />
+            ))}
         </div>
         <Cart />
       </div>
