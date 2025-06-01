@@ -1,10 +1,9 @@
 import { Card, Button, Tag, Rate } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import type { CoffeeType } from "../types/coffeeTypes";
-import { useCoffeeStore } from "../model/coffeeStore";
+import { addToCart } from "../model/coffeeStore";
 
 export const CoffeeCard = ({ coffee }: { coffee: CoffeeType }) => {
-  const { addToCart } = useCoffeeStore();
   return (
     <Card
       key={coffee.id}
