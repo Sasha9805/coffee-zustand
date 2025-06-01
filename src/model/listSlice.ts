@@ -18,6 +18,7 @@ export const listSlice: StateCreator<
   controller: undefined,
   params: {
     text: undefined,
+    type: undefined,
   },
   setParams: (newParams) => {
     const { getCoffeeList, params } = get();
