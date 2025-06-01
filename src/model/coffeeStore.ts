@@ -40,3 +40,6 @@ export const clearCart = () => useCoffeeStore.getState().clearCart();
 
 export const addToCart = (item: CoffeeType) =>
   useCoffeeStore.getState().addToCart(item);
+
+export const setData = (data?: CoffeeType[]) =>
+  useCoffeeStore.setState({ coffeeList: data });
