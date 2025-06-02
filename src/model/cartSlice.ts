@@ -16,8 +16,16 @@ import { produce } from "immer";
 
 export const cartSlice: StateCreator<
   CartState & CartActions & ListState & ListActions,
-  [["zustand/devtools", never], ["zustand/persist", unknown]],
-  [["zustand/devtools", never], ["zustand/persist", unknown]],
+  [
+    ["zustand/devtools", never],
+    ["zustand/persist", unknown],
+    ["zustand/immer", unknown]
+  ],
+  [
+    ["zustand/devtools", never],
+    ["zustand/persist", unknown],
+    ["zustand/immer", unknown]
+  ],
   CartActions & CartState
 > = (set, get) => ({
   cart: undefined,
