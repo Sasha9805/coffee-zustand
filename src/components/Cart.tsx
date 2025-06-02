@@ -17,7 +17,7 @@ export const Cart = () => {
       {cart && cart.length > 0 ? (
         <>
           {cart.map((item, index) => (
-            <span key={index}>{item.name}</span>
+            <span key={index}>{`${item.name} - ${item.quantity} шт.`}</span>
           ))}
           <Input
             placeholder="адрес"

@@ -12,6 +12,7 @@ import type {
   OrderCoffeeResponse,
 } from "../types/coffeeTypes";
 import { BASE_URL } from "../api/CoreApi";
+import { produce } from "immer";
 
 export const cartSlice: StateCreator<
   CartState & CartActions & ListState & ListActions,
@@ -22,7 +23,6 @@ export const cartSlice: StateCreator<
   cart: undefined,
   address: undefined,
   addToCart: (item) => {
-    const { cart } = get();
     const { id, name, subTitle } = item;
     const preparedItem: OrderItem = {
       id,
@@ -30,7 +30,22 @@ export const cartSlice: StateCreator<
       size: "L",
       quantity: 1,
     };
-    set({ cart: cart ? [...cart, preparedItem] : [preparedItem] });
+    set(
+      produce<CartState>((draft, state) => {
+        console.log(state);
+        if (!draft.cart) {
+          draft.cart = [];
+        }
+        const itemIndex = draft.cart.findIndex(
+          (item) => item.id === preparedItem.id
+        );
+        if (itemIndex !== -1) {
+          draft.cart[itemIndex].quantity += 1;
+          return;
+        }
+        draft.cart.push(preparedItem);
+      })
+    );
   },
   clearCart: () => {
     set({ cart: undefined });
